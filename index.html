@@ -1,0 +1,942 @@
+<!DOCTYPE html><html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>URBANOX | Sensibilidad FF</title><style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background:
+        radial-gradient(circle at 50% 0%,#123c55,transparent 38%),
+        linear-gradient(135deg,#020305,#07131c,#101827);
+    color:white;
+    padding:20px;
+}
+
+/* CONTENEDOR */
+
+.container{
+    width:100%;
+    max-width:500px;
+    margin:auto;
+}
+
+/* CABECERA */
+
+.header{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+.logo{
+    font-size:30px;
+    font-weight:900;
+    letter-spacing:4px;
+    color:#00ccff;
+    text-shadow:0 0 15px #00ccff;
+}
+
+.subtitle{
+    color:#aaa;
+    margin-top:6px;
+    font-size:13px;
+}
+
+/* PANEL */
+
+.panel{
+    background:rgba(0,0,0,.82);
+    border:1px solid #00ccff66;
+    border-radius:20px;
+    padding:22px;
+    box-shadow:0 0 30px #00ccff20;
+}
+
+/* TITULOS */
+
+.title{
+    color:#00ccff;
+    font-size:21px;
+    margin-bottom:18px;
+    text-shadow:0 0 8px #00ccff50;
+}
+
+/* FORMULARIOS */
+
+label{
+    display:block;
+    color:#bbb;
+    font-size:13px;
+    margin-bottom:7px;
+}
+
+select,
+input[type="number"]{
+    width:100%;
+    padding:13px;
+    margin-bottom:16px;
+    border-radius:9px;
+    border:1px solid #315262;
+    outline:none;
+    background:#09131b;
+    color:white;
+    font-size:14px;
+}
+
+select:focus,
+input:focus{
+    border-color:#00ccff;
+    box-shadow:0 0 10px #00ccff30;
+}
+
+/* SLIDER */
+
+.slider-box{
+    margin-bottom:18px;
+}
+
+.slider-top{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:7px;
+}
+
+.slider-value{
+    color:#00ccff;
+    font-weight:bold;
+}
+
+input[type="range"]{
+    width:100%;
+    accent-color:#00ccff;
+}
+
+/* BOTONES */
+
+.buttons{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-top:10px;
+}
+
+button{
+    padding:14px;
+    border:0;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:bold;
+    transition:.2s;
+}
+
+button:hover{
+    transform:scale(1.03);
+}
+
+.generate{
+    background:linear-gradient(90deg,#00ccff,#007da8);
+    color:#000;
+}
+
+.calibrate{
+    background:linear-gradient(90deg,#ffd700,#ff8c00);
+    color:#000;
+}
+
+/* RESULTADO */
+
+.result{
+    display:none;
+    margin-top:22px;
+    animation:show .4s ease;
+}
+
+.result.active{
+    display:block;
+}
+
+@keyframes show{
+    from{
+        opacity:0;
+        transform:translateY(10px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.result-title{
+    color:#ffd700;
+    font-size:18px;
+    margin-bottom:12px;
+}
+
+/* SENSIBILIDADES */
+
+.sensitivity-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+}
+
+.sens{
+    background:#09131b;
+    border:1px solid #244453;
+    border-radius:12px;
+    padding:15px;
+    text-align:center;
+}
+
+.sens-name{
+    color:#aaa;
+    font-size:11px;
+}
+
+.sens-number{
+    color:#00ccff;
+    font-size:25px;
+    font-weight:bold;
+    margin-top:5px;
+}
+
+/* BARRA */
+
+.calibration{
+    margin-top:20px;
+    background:#09131b;
+    border:1px solid #263e4b;
+    border-radius:12px;
+    padding:15px;
+}
+
+.calibration-title{
+    margin-bottom:10px;
+    color:#fff;
+}
+
+.bar{
+    height:10px;
+    background:#202b32;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.bar-fill{
+    width:0%;
+    height:100%;
+    background:#00ccff;
+    transition:1s;
+}
+
+/* CONSEJO */
+
+.tip{
+    margin-top:15px;
+    padding:14px;
+    border-left:3px solid #ffd700;
+    background:#17140a;
+    color:#ccc;
+    font-size:12px;
+    line-height:1.5;
+}
+
+/* BOTON GUARDAR */
+
+.save{
+    width:100%;
+    margin-top:12px;
+    background:#17232b;
+    color:#00ccff;
+    border:1px solid #00ccff55;
+}
+
+.reset{
+    width:100%;
+    margin-top:8px;
+    background:#221414;
+    color:#ff7777;
+    border:1px solid #ff444455;
+}
+
+/* FOOTER */
+
+.footer{
+    text-align:center;
+    margin-top:18px;
+    color:#666;
+    font-size:11px;
+}
+
+@media(max-width:420px){
+
+    body{
+        padding:10px;
+    }
+
+    .panel{
+        padding:17px;
+    }
+
+    .sensitivity-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+}
+
+</style></head><body><div class="container"><div class="header">
+
+    <div class="logo">
+        URBANOX
+    </div>
+
+    <div class="subtitle">
+        🎯 GENERADOR DE SENSIBILIDAD
+    </div>
+
+</div>
+
+
+<div class="panel">
+
+    <div class="title">
+        ⚙️ CONFIGURACIÓN
+    </div>
+
+
+    <!-- DISPOSITIVO -->
+
+    <label>
+        📱 Tipo de dispositivo
+    </label>
+
+    <select id="device">
+
+        <option value="low">
+            Gama baja
+        </option>
+
+        <option value="medium" selected>
+            Gama media
+        </option>
+
+        <option value="high">
+            Gama alta
+        </option>
+
+    </select>
+
+
+    <!-- DPI -->
+
+    <label>
+        📐 DPI del dispositivo
+    </label>
+
+    <input
+        id="dpi"
+        type="number"
+        min="300"
+        max="1000"
+        value="480"
+    >
+
+
+    <!-- ESTILO -->
+
+    <label>
+        🎮 Estilo de juego
+    </label>
+
+    <select id="style">
+
+        <option value="balanced">
+            Equilibrado
+        </option>
+
+        <option value="rush">
+            Rush / Agresivo
+        </option>
+
+        <option value="precision">
+            Precisión
+        </option>
+
+        <option value="sniper">
+            Francotirador
+        </option>
+
+    </select>
+
+
+    <!-- TAMAÑO BOTON -->
+
+    <div class="slider-box">
+
+        <div class="slider-top">
+
+            <label>
+                🔴 Tamaño botón de disparo
+            </label>
+
+            <span
+                id="fireValue"
+                class="slider-value">
+                50
+            </span>
+
+        </div>
+
+        <input
+            id="fireButton"
+            type="range"
+            min="30"
+            max="70"
+            value="50"
+        >
+
+    </div>
+
+
+    <!-- VELOCIDAD -->
+
+    <div class="slider-box">
+
+        <div class="slider-top">
+
+            <label>
+                ⚡ Velocidad de respuesta
+            </label>
+
+            <span
+                id="responseValue"
+                class="slider-value">
+                50
+            </span>
+
+        </div>
+
+        <input
+            id="response"
+            type="range"
+            min="1"
+            max="100"
+            value="50"
+        >
+
+    </div>
+
+
+    <!-- BOTONES -->
+
+    <div class="buttons">
+
+        <button
+            class="generate"
+            onclick="generar()">
+
+            🎯 GENERAR
+
+        </button>
+
+
+        <button
+            class="calibrate"
+            onclick="calibrar()">
+
+            🧪 CALIBRAR
+
+        </button>
+
+    </div>
+
+
+    <!-- RESULTADO -->
+
+    <div
+        id="result"
+        class="result">
+
+        <div class="result-title">
+            🔥 CONFIGURACIÓN GENERADA
+        </div>
+
+
+        <div class="sensitivity-grid">
+
+            <div class="sens">
+
+                <div class="sens-name">
+                    GENERAL
+                </div>
+
+                <div
+                    id="general"
+                    class="sens-number">
+                    0
+                </div>
+
+            </div>
+
+
+            <div class="sens">
+
+                <div class="sens-name">
+                    PUNTO ROJO
+                </div>
+
+                <div
+                    id="redDot"
+                    class="sens-number">
+                    0
+                </div>
+
+            </div>
+
+
+            <div class="sens">
+
+                <div class="sens-name">
+                    MIRA 2X
+                </div>
+
+                <div
+                    id="scope2"
+                    class="sens-number">
+                    0
+                </div>
+
+            </div>
+
+
+            <div class="sens">
+
+                <div class="sens-name">
+                    MIRA 4X
+                </div>
+
+                <div
+                    id="scope4"
+                    class="sens-number">
+                    0
+                </div>
+
+            </div>
+
+
+            <div class="sens">
+
+                <div class="sens-name">
+                    AWM
+                </div>
+
+                <div
+                    id="awm"
+                    class="sens-number">
+                    0
+                </div>
+
+            </div>
+
+
+            <div class="sens">
+
+                <div class="sens-name">
+                    CÁMARA
+                </div>
+
+                <div
+                    id="camera"
+                    class="sens-number">
+                    0
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- CALIBRACION -->
+
+        <div class="calibration">
+
+            <div class="calibration-title">
+                📊 Nivel de calibración
+            </div>
+
+            <div class="bar">
+
+                <div
+                    id="barFill"
+                    class="bar-fill">
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div
+            id="tip"
+            class="tip">
+
+            💡 Genera una configuración y pruébala en el campo de entrenamiento.
+
+        </div>
+
+
+        <button
+            class="save"
+            onclick="guardar()">
+
+            💾 GUARDAR CONFIGURACIÓN
+
+        </button>
+
+
+        <button
+            class="reset"
+            onclick="restablecer()">
+
+            🔄 RESTABLECER
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<div class="footer">
+
+    URBANOX • Herramienta de configuración visual
+
+</div>
+
+</div><script>
+
+/* ELEMENTOS */
+
+const fireButton =
+    document.getElementById("fireButton");
+
+const response =
+    document.getElementById("response");
+
+const fireValue =
+    document.getElementById("fireValue");
+
+const responseValue =
+    document.getElementById("responseValue");
+
+
+/* MOSTRAR VALORES */
+
+fireButton.addEventListener("input",function(){
+
+    fireValue.innerText =
+        this.value;
+
+});
+
+
+response.addEventListener("input",function(){
+
+    responseValue.innerText =
+        this.value;
+
+});
+
+
+/* LIMITAR */
+
+function limitar(numero,min,max){
+
+    return Math.max(
+        min,
+        Math.min(max,numero)
+    );
+
+}
+
+
+/* GENERAR */
+
+function generar(){
+
+    const device =
+        document.getElementById("device").value;
+
+    const style =
+        document.getElementById("style").value;
+
+    const dpi =
+        Number(document.getElementById("dpi").value);
+
+    const button =
+        Number(fireButton.value);
+
+    const speed =
+        Number(response.value);
+
+
+    let base = 90;
+
+
+    /* DISPOSITIVO */
+
+    if(device === "low"){
+        base -= 10;
+    }
+
+    if(device === "high"){
+        base += 5;
+    }
+
+
+    /* DPI */
+
+    let dpiBonus =
+        (dpi - 480) / 40;
+
+
+    /* ESTILO */
+
+    if(style === "rush"){
+        base += 7;
+    }
+
+    if(style === "precision"){
+        base -= 5;
+    }
+
+    if(style === "sniper"){
+        base -= 9;
+    }
+
+
+    /* RESPUESTA */
+
+    base +=
+        (speed - 50) / 10;
+
+
+    /* BOTON */
+
+    base +=
+        (button - 50) / 5;
+
+
+    base += dpiBonus;
+
+
+    /* VALORES */
+
+    let general =
+        limitar(Math.round(base),50,100);
+
+    let redDot =
+        limitar(
+            Math.round(general - 4),
+           45,
+           100
+        );
+
+    let scope2 =
+        limitar(
+            Math.round(general - 12),
+           35,
+           100
+        );
+
+    let scope4 =
+        limitar(
+            Math.round(general - 20),
+           25,
+           100
+        );
+
+    let awm =
+        limitar(
+            Math.round(general - 30),
+           10,
+           100
+        );
+
+    let camera =
+        limitar(
+            Math.round(general + 2),
+           50,
+           100
+        );
+
+
+    /* MOSTRAR */
+
+    document.getElementById("general")
+        .innerText = general;
+
+    document.getElementById("redDot")
+        .innerText = redDot;
+
+    document.getElementById("scope2")
+        .innerText = scope2;
+
+    document.getElementById("scope4")
+        .innerText = scope4;
+
+    document.getElementById("awm")
+        .innerText = awm;
+
+    document.getElementById("camera")
+        .innerText = camera;
+
+
+    document.getElementById("result")
+        .classList.add("active");
+
+
+    document.getElementById("tip").innerText =
+        "💡 Configuración generada. Pruébala en entrenamiento y ajusta de 2 en 2 si la mira se siente demasiado rápida o lenta.";
+
+
+    document.getElementById("barFill")
+        .style.width = general + "%";
+
+}
+
+
+/* CALIBRAR */
+
+function calibrar(){
+
+    const responseValueNum =
+        Number(response.value);
+
+    const buttonValue =
+        Number(fireButton.value);
+
+
+    let calibration =
+        Math.round(
+            (responseValueNum + buttonValue) / 2
+        );
+
+
+    document.getElementById("result")
+        .classList.add("active");
+
+
+    document.getElementById("barFill")
+        .style.width =
+        calibration + "%";
+
+
+    document.getElementById("tip").innerText =
+        "🧪 Calibración completada al " +
+        calibration +
+        "%. Si notas movimientos excesivos, reduce la sensibilidad progresivamente.";
+
+}
+
+
+/* GUARDAR */
+
+function guardar(){
+
+    const config = {
+
+        general:
+            document.getElementById("general").innerText,
+
+        redDot:
+            document.getElementById("redDot").innerText,
+
+        scope2:
+            document.getElementById("scope2").innerText,
+
+        scope4:
+            document.getElementById("scope4").innerText,
+
+        awm:
+            document.getElementById("awm").innerText,
+
+        camera:
+            document.getElementById("camera").innerText
+
+    };
+
+
+    localStorage.setItem(
+        "urbanoxSensitivity",
+        JSON.stringify(config)
+    );
+
+
+    alert(
+        "✅ Configuración guardada en este dispositivo."
+    );
+
+}
+
+
+/* CARGAR */
+
+window.onload = function(){
+
+    const saved =
+        localStorage.getItem(
+            "urbanoxSensitivity"
+        );
+
+
+    if(saved){
+
+        const config =
+            JSON.parse(saved);
+
+
+        document.getElementById("general")
+            .innerText = config.general;
+
+        document.getElementById("redDot")
+            .innerText = config.redDot;
+
+        document.getElementById("scope2")
+            .innerText = config.scope2;
+
+        document.getElementById("scope4")
+            .innerText = config.scope4;
+
+        document.getElementById("awm")
+            .innerText = config.awm;
+
+        document.getElementById("camera")
+            .innerText = config.camera;
+
+    }
+
+};
+
+
+/* RESTABLECER */
+
+function restablecer(){
+
+    localStorage.removeItem(
+        "urbanoxSensitivity"
+    );
+
+    location.reload();
+
+}
+
+</script></body>
+</html>
